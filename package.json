@@ -1,0 +1,21 @@
+{
+  "name": "bankcart",
+  "version": "1.0.0",
+  "description": "Filling out a bank card",
+  "main": "index.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/IrekYkubov/bankCart.git"
+  },
+  "author": "Irek Ykubov",
+  "bugs": {
+    "url": "https://github.com/IrekYkubov/bankCart/issues"
+  },
+  "homepage": "https://github.com/IrekYkubov/bankCart#readme",
+  "dependencies": {
+    "jquery": "^3.6.0",
+    "jquery-mask-plugin": "^1.14.16",
+    "redom": "^3.29.0"
+  }
+}
