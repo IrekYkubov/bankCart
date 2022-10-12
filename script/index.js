@@ -1,4 +1,5 @@
 import {el, setChildren} from 'redom';
+import { checkCardHolder, checkCardNumber, checkCVV } from './validate.js';
 import $ from "jquery";
 import mask from 'jquery-mask-plugin';
 
@@ -31,7 +32,8 @@ const renderCard = () => {
   const inputCvv = el("input", { type: "text", className: 'input input__cvv'});
   setChildren(wrapCvv, labelCvv, inputCvv);
   const formButton = el('button', {className: 'form__button'}, 'CHECK OUT');
-  setChildren(form, wrapHolder, wrapNumber, wrapDate, wrapCvv, formButton);
+  const h2Valid = el('h2', { className: 'formValidHide', id: 'isValid' }, '')
+  setChildren(form, wrapHolder, wrapNumber, wrapDate, wrapCvv, formButton, h2Valid);
 
   setChildren(card, secure, creditCard, form);
 
@@ -59,3 +61,34 @@ $(document).ready(function(){
 });
 
 
+const inValid = () => {
+  const isValid = document.querySelector('#isValid');
+  isValid.className = 'formInValid';
+  isValid.textContent = 'не валидный';
+  setTimeout(() => {
+      isValid.className = 'formValidHide';
+  }, 2000);
+};
+
+const valid = () => {
+  const isValid = document.querySelector('#isValid');
+  isValid.className = 'formValid';
+  isValid.textContent = 'валидный';
+  setTimeout(() => {
+      isValid.className = 'formValidHide';
+  }, 2000);
+};
+
+const formButton = document.querySelector('.form__button');
+formButton.addEventListener('click', e => {
+    e.preventDefault();
+    const inputHolder = document.querySelector('.input__holder');
+    const cardHolder = document.querySelector('.input__number');
+    const input__cvv = document.querySelector('.input__cvv');
+
+    const isValid = (checkCardHolder(inputHolder.value) && checkCardNumber(cardHolder.value) && checkCVV(input__cvv.value));
+
+    if (isValid)
+        valid();
+    else inValid();
+})
